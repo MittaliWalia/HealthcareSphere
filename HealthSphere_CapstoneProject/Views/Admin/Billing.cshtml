@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Billing Management</h2>
+<a href="/Admin/CreateBill" class="btn btn-primary">+ Generate New Bill</a>
+
+<table class="table table-bordered mt-3">
+    <tr>
+        <th>ID</th>
+        <th>Patient</th>
+        <th>Appointment Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Insurance</th>
+        <th>Issued On</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var bill in Model)
+    {
+        <tr>
+            <td>@bill.Id</td>
+            <td>@bill.PatientName</td>
+            <td>@bill.AppointmentDate.ToShortDateString()</td>
+            <td>$@bill.Amount</td>
+            <td>@bill.Status</td>
+            <td>@bill.InsuranceProvider (@bill.InsuranceNumber)</td>
+            <td>@bill.DateIssued.ToShortDateString()</td>
+            <td>
+                <a href="/Admin/EditBill/@bill.Id" class="btn btn-warning">Edit</a>
+                <a href="/Admin/DeleteBill/@bill.Id" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

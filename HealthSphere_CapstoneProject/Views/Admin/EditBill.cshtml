@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Edit Bill</h2>
+
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div>
+        <label>Amount:</label>
+        <input type="number" name="Amount" step="0.01" value="@Model.Amount" required class="form-control" />
+    </div>
+
+    <div>
+        <label>Status:</label>
+        <select name="Status" class="form-control">
+            <option value="Unpaid" selected="@(Model.Status == "Unpaid" ? "selected" : null)">Unpaid</option>
+            <option value="Paid" selected="@(Model.Status == "Paid" ? "selected" : null)">Paid</option>
+            <option value="Pending Insurance" selected="@(Model.Status == "Pending Insurance" ? "selected" : null)">Pending Insurance</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Insurance Provider:</label>
+        <input type="text" name="InsuranceProvider" value="@Model.InsuranceProvider" class="form-control" />
+    </div>
+
+    <div>
+        <label>Insurance Number:</label>
+        <input type="text" name="InsuranceNumber" value="@Model.InsuranceNumber" class="form-control" />
+    </div>
+
+    <div>
+        <label>Notes:</label>
+        <textarea name="Notes" class="form-control">@Model.Notes</textarea>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-success">Update Bill</button>
+</form>
+

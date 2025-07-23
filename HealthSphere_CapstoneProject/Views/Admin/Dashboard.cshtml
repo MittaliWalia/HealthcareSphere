@@ -1,0 +1,66 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>📈 Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm bg-light">
+            <h5>Total Patients</h5>
+            <h2>@ViewBag.TotalPatients</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm bg-light">
+            <h5>Completed Appointments</h5>
+            <h2>@ViewBag.CompletedAppointments</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm bg-light">
+            <h5>Total Revenue Collected</h5>
+            <h2>$@ViewBag.TotalRevenue</h2>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h4 class="mt-4">Revenue Chart</h4>
+<canvas id="revenueChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    fetch('/Admin/GetMonthlyRevenue')
+        .then(response => response.json())
+        .then(result => {
+            const labels = result[0];
+            const data = result[1];
+
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+</script>

@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Doctor Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject IHttpContextAccessor HttpContextAccessor
+<div class="container mt-4">
+    <h2 class="mb-4">Welcome, Dr.@HttpContextAccessor.HttpContext.Session.GetString("Username") ?? "Doctor"</h2>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Today's Appointments</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TodayAppointments</h5>
+                    <p class="card-text">Scheduled for today.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Total Unique Patients</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TotalPatients</h5>
+                    <p class="card-text">Patients you've consulted with.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Pending Lab Requests</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.LabCount</h5>
+                    <p class="card-text">Lab tests awaiting action.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a class="btn btn-outline-info" href="@Url.Action("Schedule")">📅 View Full Schedule</a>
+        <a class="btn btn-outline-secondary" href="@Url.Action("LabRequests")">🧪 View Lab Requests</a>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "My Medical Records";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">My Medical History</h2>
+<a class="btn btn-outline-primary mb-3" href="/Patient/DownloadMedicalHistory" target="_blank">
+    📥 Download Full Medical History (PDF)
+</a>
+@if (((List<dynamic>)ViewBag.Records).Count == 0)
+{
+    <div class="alert alert-info">No medical records found.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>Diagnosis</th>
+                <th>Prescription</th>
+                <th>Vitals</th>
+                <th>Treated By</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rec in ViewBag.Records)
+            {
+                <tr>
+                    <td>@rec.DateCreated.ToString("yyyy-MM-dd")</td>
+                    <td>@rec.Diagnosis</td>
+                    <td>@rec.Prescription</td>
+                    <td>@rec.Vitals</td>
+                    <td>@rec.DoctorName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

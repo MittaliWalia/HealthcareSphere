@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Appointment Management</h2>
+<a href="/Admin/CreateAppointment" class="btn btn-primary">+ New Appointment</a>
+<table class="table table-bordered mt-3">
+    <tr>
+        <th>ID</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var appt in Model)
+    {
+        <tr>
+            <td>@appt.Id</td>
+            <td>@appt.PatientName</td>
+            <td>@appt.DoctorName</td>
+            <td>@appt.AppointmentDate.ToShortDateString()</td>
+            <td>@appt.AppointmentTime</td>
+            <td>@appt.Status</td>
+            <td>@appt.Notes</td>
+            <td>
+                <a href="/Admin/EditAppointment/@appt.Id" class="btn btn-warning">Edit</a>
+                <a href="/Admin/DeleteAppointment/@appt.Id" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,31 @@
+﻿@model dynamic
+@{
+    Layout = null;
+}
+
+<h2 style="text-align:center;">Medical Invoice</h2>
+<hr />
+
+<p><strong>Invoice ID:</strong> @Model.BillId</p>
+<p><strong>Patient:</strong> @Model.PatientName</p>
+<p><strong>Doctor:</strong> @Model.DoctorName</p>
+<p><strong>Appointment:</strong> @Model.AppointmentDate.ToString("yyyy-MM-dd") @Model.AppointmentTime.ToString(@"hh\:mm")</p>
+<p><strong>Date Issued:</strong> @Model.DateIssued.ToString("yyyy-MM-dd")</p>
+<hr />
+
+<h4>Billing Details</h4>
+<p><strong>Amount:</strong> $@Model.Amount.ToString("F2")</p>
+<p><strong>Status:</strong> @Model.Status</p>
+
+@if (!string.IsNullOrEmpty(Model.InsuranceProvider))
+{
+    <p><strong>Insurance:</strong> @Model.InsuranceProvider (@Model.InsuranceNumber)</p>
+}
+
+@if (!string.IsNullOrEmpty(Model.Notes))
+{
+    <p><strong>Notes:</strong> @Model.Notes</p>
+}
+
+<hr />
+<p style="text-align:right;">Thank you for choosing our clinic!</p>

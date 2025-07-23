@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Edit User</h2>
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div>
+        <label>Name:</label>
+        <input type="text" name="Email" value="@Model.Email" required />
+    </div>
+    <div>
+        <label>Username:</label>
+        <input type="text" name="Username" value="@Model.Username" required />
+    </div>
+    <div>
+        <label>Role:</label>
+        <select name="Role">
+            <option value="Doctor" selected="@(Model.Role == "Doctor")">Doctor</option>
+            <option value="Nurse" selected="@(Model.Role == "Nurse")">Nurse</option>
+            <option value="Patient" selected="@(Model.Role == "Patient")">Patient</option>
+            <option value="Admin" selected="@(Model.Role == "Admin")">Admin</option>
+        </select>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>

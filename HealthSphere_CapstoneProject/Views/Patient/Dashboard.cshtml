@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "My Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Welcome to Your Dashboard</h2>
+
+@if (((List<dynamic>)ViewBag.Appointments).Count == 0)
+{
+    <div class="alert alert-info">No upcoming appointments.</div>
+}
+else
+{
+    <h4 class="mb-3">Upcoming Appointments</h4>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Doctor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appt in ViewBag.Appointments)
+            {
+                <tr>
+                    <td>@appt.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                    <td>@appt.AppointmentTime.ToString(@"hh\:mm")</td>
+                    <td>@appt.DoctorName</td>
+                    <td>@appt.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

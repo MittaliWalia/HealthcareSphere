@@ -1,0 +1,58 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Edit Appointment</h2>
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div>
+        <label>Patient:</label>
+        <select name="PatientId" class="form-control">
+            @foreach (var p in ViewBag.Patients)
+            {
+                <option value="@p.Id" selected="@(p.Id == Model.PatientId ? "selected" : null)">@p.Email</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Doctor:</label>
+        <select name="DoctorId" class="form-control">
+            @foreach (var d in ViewBag.Doctors)
+            {
+                <option value="@d.Id" selected="@(d.Id == Model.DoctorId ? "selected" : null)">@d.Email</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Date:</label>
+        <input type="date" name="AppointmentDate" value="@Model.AppointmentDate.ToString("yyyy-MM-dd")" class="form-control" />
+    </div>
+
+    <div>
+        <label>Time:</label>
+        <input type="time" name="AppointmentTime" value="@Model.AppointmentTime.ToString(@"hh\:mm")" class="form-control" />
+    </div>
+
+    <div>
+        <label>Status:</label>
+        <select name="Status" class="form-control">
+            <option value="Pending" selected="@(Model.Status == "Pending" ? "selected" : null)">Pending</option>
+            <option value="Completed" selected="@(Model.Status == "Completed" ? "selected" : null)">Completed</option>
+            <option value="Cancelled" selected="@(Model.Status == "Cancelled" ? "selected" : null)">Cancelled</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Notes:</label>
+        <textarea name="Notes" class="form-control">@Model.Notes</textarea>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+

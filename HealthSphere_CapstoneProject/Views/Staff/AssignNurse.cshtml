@@ -1,0 +1,32 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Assign Nurse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Assign Nurse to Appointment</h2>
+
+<div class="card p-4 mb-4 shadow">
+    <h5>Appointment Details</h5>
+    <p><strong>Patient:</strong> @Model.PatientName</p>
+    <p><strong>Date:</strong> @Model.AppointmentDate.ToString("yyyy-MM-dd")</p>
+    <p><strong>Time:</strong> @Model.AppointmentTime.ToString(@"hh\:mm")</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+</div>
+
+<form asp-action="AssignNurse" method="post">
+    <input type="hidden" name="appointmentId" value="@Model.AppointmentId" />
+
+    <div class="mb-3">
+        <label for="nurseId" class="form-label">Select Nurse</label>
+        <select name="nurseId" class="form-select" required>
+            <option value="">-- Choose Nurse --</option>
+            @foreach (var nurse in Model.Nurses)
+            {
+                <option value="@nurse.UserID">@nurse.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Assign Nurse</button>
+</form>

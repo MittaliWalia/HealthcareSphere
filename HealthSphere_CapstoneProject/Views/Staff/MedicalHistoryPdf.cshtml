@@ -1,0 +1,41 @@
+﻿@model dynamic
+@{
+    Layout = null;
+}
+
+<h2 style="text-align:center;">Patient Medical History</h2>
+<p><strong>Patient:</strong> @Model.PatientName</p>
+<hr />
+
+@if (Model.Records.Count == 0)
+{
+    <p>No medical history available.</p>
+}
+else
+{
+    <table style="width: 100%; border-collapse: collapse;" border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Diagnosis</th>
+                <th>Prescription</th>
+                <th>Vitals</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rec in Model.Records)
+            {
+                <tr>
+                    <td>@rec.DateCreated.ToString("yyyy-MM-dd")</td>
+                    <td>@rec.DoctorName</td>
+                    <td>@rec.Diagnosis</td>
+                    <td>@rec.Prescription</td>
+                    <td>@rec.Vitals</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr />
+<p style="text-align:right;">Generated on @DateTime.Now.ToString("yyyy-MM-dd HH:mm")</p>
