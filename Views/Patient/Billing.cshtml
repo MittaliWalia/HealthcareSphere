@@ -1,0 +1,116 @@
+﻿@model IEnumerable<HealthSphere_CapstoneProject.Models.Bill>
+
+@{
+    ViewData["Title"] = "My Bills";
+    var bills = ViewBag.Bills as List<dynamic>;
+}
+@section Scripts {
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        let stripe;
+        async function initStripe() {
+            if (stripe) return stripe;
+            const r = await fetch('/Payments/Key');
+            const { key } = await r.json();
+            stripe = Stripe(key);
+            return stripe;
+        }
+
+        async function payBill(billId) {
+            const s = await initStripe();
+            const res = await fetch('/Payments/CreateCheckoutSession?billId=' + billId, { method: 'POST' });
+            if (!res.ok) { alert('Failed to create checkout session'); return; }
+            const data = await res.json();
+            if (data.url) { window.location = data.url; return; }
+            await s.redirectToCheckout({ sessionId: data.id });
+        }
+    </script>
+}
+
+@section Styles {
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+}
+
+<div class="container py-4">
+  
+    <div class="d-flex align-items-center mb-4">
+        <h1 class="h4 fw-bold"><i class="bi bi-receipt me-2"></i>Billing Records</h1>
+    </div>
+
+    @if (bills == null || !bills.Any())
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle me-1"></i>
+            No billing records found.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive shadow-sm">
+            <table class="table table-striped table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Date Issued</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Insurance</th>
+                        <th scope="col" class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in bills)
+                    {
+                        <tr>
+                            <td>@String.Format("{0:yyyy-MM-dd}", b.DateIssued)</td>
+                            <td>@String.Format("{0:C}", b.Amount)</td>
+                            <td>
+                                <span class="badge @(b.Status == "Paid" ? "bg-success" : "bg-warning text-dark")">
+                                    @b.Status
+                                </span>
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(b.InsuranceProvider))
+                                {
+                                    <small class="text-muted">
+                                        @b.InsuranceProvider
+                                        <br />
+                                        <span>#@b.InsuranceNumber</span>
+                                    </small>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </td>
+
+                            <td class="text-center">
+                                @if (!string.Equals((string)b.Status, "Paid", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <button type="button" class="btn btn-sm btn-success me-1" onclick="payBill(@b.Id)">
+                                        <i class="bi bi-credit-card"></i> Pay Now
+                                    </button>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success me-1">
+                                        <i class="bi bi-check2-circle"></i> Paid
+                                    </span>
+                                }
+
+                               
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div class="mt-4 text-end">
+        <a asp-action="Dashboard" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
+        </a>
+    </div>
+</div>
