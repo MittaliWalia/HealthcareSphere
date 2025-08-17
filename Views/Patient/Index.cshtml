@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Health Portal";
+}
+
+@section Styles {
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+}
+
+<div class="container py-5">
+   
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold"><i class="bi bi-ui-checks-grid me-2"></i>Welcome to Your Health Portal</h1>
+        <p class="lead text-muted">Access your appointments, records, and billing all in one place.</p>
+    </div>
+
+   
+    <div class="row g-4">
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-plus-fill fs-1 text-primary mb-3"></i>
+                    <h5 class="card-title">Book Appointment</h5>
+                    <p class="card-text text-muted">Schedule a new appointment with your doctor.</p>
+                    <a asp-controller="Patient" asp-action="BookAppointment" class="btn btn-primary mt-2">
+                        Go to Booking
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-journal-medical fs-1 text-success mb-3"></i>
+                    <h5 class="card-title">My Medical Records</h5>
+                    <p class="card-text text-muted">View your past diagnoses and prescriptions.</p>
+                    <a asp-controller="Patient" asp-action="MyRecords" class="btn btn-success mt-2">
+                        View Records
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-receipt-cutoff fs-1 text-warning mb-3"></i>
+                    <h5 class="card-title">Billing & Payments</h5>
+                    <p class="card-text text-muted">Review and manage your bills and payments.</p>
+                    <a asp-controller="Patient" asp-action="Billing" class="btn btn-warning mt-2 text-white">
+                        Manage Billing
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+}

@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Medical Staff Dashboard";
+}
+
+@section Styles {
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold"><i class="bi bi-person-badge me-2"></i>Medical Staff Dashboard</h1>
+        <p class="lead text-muted">Quick access to your daily tools and records.</p>
+    </div>
+
+ 
+    <div class="row g-4">
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-event-fill fs-1 text-primary mb-3"></i>
+                    <h5 class="card-title">Today's Schedule</h5>
+                    <p class="card-text text-muted">View and manage your patient appointments.</p>
+                    <a asp-controller="Staff" asp-action="Schedule" class="btn btn-primary mt-2">
+                        View Schedule
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-folder2-open fs-1 text-success mb-3"></i>
+                    <h5 class="card-title">Patient Records</h5>
+                    <p class="card-text text-muted">Access and update patient medical records.</p>
+                    <a asp-controller="Staff" asp-action="PatientRecords" class="btn btn-success mt-2">
+                        View Records
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-journal-medical fs-1 text-warning mb-3"></i>
+                    <h5 class="card-title">Clinical Notes</h5>
+                    <p class="card-text text-muted">Create and review clinical notes & diagnostics.</p>
+                    <a asp-controller="Staff" asp-action="Diagnostics" class="btn btn-warning mt-2 text-white">
+                        View Notes
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+@section Scripts {
+}
