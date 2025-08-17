@@ -1,0 +1,40 @@
+﻿@model HealthSphere_CapstoneProject.Models.ClinicalNote
+@{
+    ViewData["Title"] = "Edit Diagnostic";
+}
+
+<h2 class="mb-4"><i class="bi bi-pencil-square me-1"></i> Edit Diagnostic</h2>
+
+<form asp-action="EditDiagnostic" method="post" class="shadow-sm p-4 rounded bg-light">
+    <input type="hidden" asp-for="AppointmentId" />
+    <input type="hidden" asp-for="DoctorId" />
+
+    <div class="mb-3">
+        <label asp-for="Notes" class="form-label">Clinical Notes</label>
+        <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Enter clinical notes"></textarea>
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TreatmentPlan" class="form-label">Treatment Plan</label>
+        <textarea asp-for="TreatmentPlan" class="form-control" rows="3" placeholder="Describe the treatment plan"></textarea>
+        <span asp-validation-for="TreatmentPlan" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="LabTestRequested" class="form-check-input" type="checkbox" />
+        <label asp-for="LabTestRequested" class="form-check-label">Request Lab Test</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-save"></i> Save Changes
+    </button>
+
+    <a asp-action="LabAndDiagnostics" class="btn btn-secondary ms-2">
+        <i class="bi bi-arrow-left"></i> Cancel
+    </a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

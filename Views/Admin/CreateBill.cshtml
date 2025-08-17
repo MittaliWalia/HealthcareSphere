@@ -1,0 +1,97 @@
+﻿@model HealthSphere_CapstoneProject.Models.Bill
+@{
+    ViewData["Title"] = "Create New Bill";
+}
+
+<div class="container py-4">
+    
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h3">💳 Create New Bill</h1>
+        </div>
+    </div>
+
+    <form asp-action="CreateBill" method="post" class="row g-3 shadow-sm p-4 bg-white rounded">
+        <div class="mb-3">
+            <label asp-for="AppointmentId" class="form-label">Completed Appointment</label>
+            @Html.DropDownListFor(
+                     m => m.AppointmentId,
+                     (IEnumerable<SelectListItem>)ViewBag.CompletedAppointments,
+                     "-- Select an appointment --",
+                     new { @class = "form-select", required = "required" }
+                     )
+            <span asp-validation-for="AppointmentId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PatientId" class="form-label">Patient</label>
+            @Html.DropDownListFor(
+                     m => m.PatientId,
+                     (IEnumerable<SelectListItem>)ViewBag.Patients,
+                     "-- Select a patient --",
+                     new { @class = "form-select", required = "required" }
+                     )
+            <span asp-validation-for="PatientId" class="text-danger"></span>
+        </div>
+
+
+        <div class="col-md-4">
+            <label asp-for="Amount" class="form-label">Amount ($)</label>
+            <input asp-for="Amount" type="number" step="0.01" class="form-control" required />
+            <span asp-validation-for="Amount" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" class="form-select">
+                <option value="Unpaid">Unpaid</option>
+                <option value="Paid">Paid</option>
+                <option value="PendingInsurance">Pending Insurance</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="InsuranceProvider" class="form-label">Insurance Provider</label>
+            <input asp-for="InsuranceProvider" type="text" class="form-control" />
+            <span asp-validation-for="InsuranceProvider" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="InsuranceNumber" class="form-label">Insurance Number</label>
+            <input asp-for="InsuranceNumber" type="text" class="form-control" />
+            <span asp-validation-for="InsuranceNumber" class="text-danger small"></span>
+        </div>
+
+        <div class="col-12">
+            <label asp-for="Notes" class="form-label">Notes</label>
+            <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Additional notes..."></textarea>
+            <span asp-validation-for="Notes" class="text-danger small"></span>
+        </div>
+
+        <div class="col-12 text-end">
+            <a asp-action="Billing" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-arrow-left"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-lg"></i> Create Bill
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Styles {
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function fillPatient(select) {
+            var selected = select.options[select.selectedIndex];
+            var pid = selected.getAttribute('data-patient-id');
+            document.getElementById('PatientId').value = pid || '';
+        }
+    </script>
+}
