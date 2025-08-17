@@ -12,7 +12,7 @@
         public DateTime DateIssued { get; set; }
         public string? Notes { get; set; }
 
-        // Extra
+   
         public string? PatientName { get; set; }
         public DateTime AppointmentDate { get; set; }
     }

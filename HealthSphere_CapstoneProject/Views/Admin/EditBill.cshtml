@@ -1,48 +1,92 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model HealthSphere_CapstoneProject.Models.Bill
 @{
+    ViewData["Title"] = "Edit Bill";
 }
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+
+@section Styles {
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 }
-<h2>Edit Bill</h2>
 
-<form method="post">
-    <input type="hidden" name="Id" value="@Model.Id" />
-
-    <div>
-        <label>Amount:</label>
-        <input type="number" name="Amount" step="0.01" value="@Model.Amount" required class="form-control" />
+<div class="container py-4">
+ 
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h3"><i class="bi bi-pencil-square me-2"></i>Edit Bill</h1>
+        </div>
     </div>
 
-    <div>
-        <label>Status:</label>
-        <select name="Status" class="form-control">
-            <option value="Unpaid" selected="@(Model.Status == "Unpaid" ? "selected" : null)">Unpaid</option>
-            <option value="Paid" selected="@(Model.Status == "Paid" ? "selected" : null)">Paid</option>
-            <option value="Pending Insurance" selected="@(Model.Status == "Pending Insurance" ? "selected" : null)">Pending Insurance</option>
-        </select>
-    </div>
+  
+    <form asp-action="EditBill" method="post" class="row g-3 shadow-sm p-4 bg-white rounded">
+        <input asp-for="Id" type="hidden" />
 
-    <div>
-        <label>Insurance Provider:</label>
-        <input type="text" name="InsuranceProvider" value="@Model.InsuranceProvider" class="form-control" />
-    </div>
+        <div class="col-md-6">
+            <label asp-for="AppointmentId" class="form-label">Appointment</label>
+            @Html.DropDownListFor(
+                     m => m.AppointmentId,
+                     (IEnumerable<SelectListItem>)ViewBag.CompletedAppointments,
+                     htmlAttributes: new { @class = "form-select", required = "required" }
+                     )
+            <span asp-validation-for="AppointmentId" class="text-danger small"></span>
+        </div>
 
-    <div>
-        <label>Insurance Number:</label>
-        <input type="text" name="InsuranceNumber" value="@Model.InsuranceNumber" class="form-control" />
-    </div>
+        <div class="col-md-4">
+            <label asp-for="PatientId" class="form-label">Patient</label>
+            @Html.DropDownListFor(
+                     m => m.PatientId,
+                     (IEnumerable<SelectListItem>)ViewBag.Patients,
+                     htmlAttributes: new { @class = "form-select", required = "required" }
+                     )
+            <span asp-validation-for="PatientId" class="text-danger small"></span>
+        </div>
 
-    <div>
-        <label>Notes:</label>
-        <textarea name="Notes" class="form-control">@Model.Notes</textarea>
-    </div>
 
-    <br />
-    <button type="submit" class="btn btn-success">Update Bill</button>
-</form>
 
+        <div class="col-md-4">
+            <label asp-for="Amount" class="form-label">Amount ($)</label>
+            <input asp-for="Amount" type="number" step="0.01" class="form-control"  />
+            <span asp-validation-for="Amount" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" class="form-select">
+                <option value="Unpaid">Unpaid</option>
+                <option value="Paid">Paid</option>
+                <option value="Pending Insurance">Pending Insurance</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="InsuranceProvider" class="form-label">Insurance Provider</label>
+            <input asp-for="InsuranceProvider" type="text" class="form-control" />
+            <span asp-validation-for="InsuranceProvider" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="InsuranceNumber" class="form-label">Insurance Number</label>
+            <input asp-for="InsuranceNumber" type="text" class="form-control" />
+            <span asp-validation-for="InsuranceNumber" class="text-danger small"></span>
+        </div>
+
+        <div class="col-12">
+            <label asp-for="Notes" class="form-label">Notes</label>
+            <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Enter any notes..."></textarea>
+            <span asp-validation-for="Notes" class="text-danger small"></span>
+        </div>
+
+        <div class="col-12 text-end">
+            <a asp-action="Billing" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-arrow-left"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
